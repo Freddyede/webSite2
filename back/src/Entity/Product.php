@@ -32,11 +32,6 @@ class Product
      */
     private $url;
 
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;

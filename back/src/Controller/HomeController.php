@@ -14,17 +14,24 @@ use App\Entity\Product;
 
 class HomeController extends AbstractController
 {
+    public function __construct(){
+
+        $this->serializer = new Serializer(
+            [new ObjectNormalizer()], 
+            [
+                new XmlEncoder(), 
+                new JsonEncoder()
+            ]
+        );
+        
+    }
     /**
      * @Route("/", name="home", methods={"GET"})
      */
     public function index(SerializerInterface $serializer)
     {
-
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
         $user = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        $userS = $serializer->serialize($user,'json');
+        $userS = $this->serializer->serialize($user,'json');
         $response = new Response(
             $userS,
             Response::HTTP_OK,

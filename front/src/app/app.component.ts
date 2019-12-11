@@ -6,11 +6,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  products: Object;
   title = 'front';
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
-    this.http.get('https://localhost:8000/').subscribe(data => {
-      console.log(data)
+    this.http.get('https://localhost:8000/').subscribe(dataProducts => {
+      this.products = dataProducts;
     });
 
   }

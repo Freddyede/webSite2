@@ -15,7 +15,6 @@ use App\Entity\Product;
 class HomeController extends AbstractController
 {
     public function __construct(){
-
         $this->serializer = new Serializer(
             [new ObjectNormalizer()], 
             [
@@ -23,7 +22,6 @@ class HomeController extends AbstractController
                 new JsonEncoder()
             ]
         );
-        
     }
     /**
      * @Route("/", name="home", methods={"GET"})

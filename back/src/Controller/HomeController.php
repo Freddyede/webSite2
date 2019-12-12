@@ -24,6 +24,11 @@ class HomeController extends AbstractController
                 new JsonEncoder()
             ]
         );
+        $this->options=
+            [
+                'content-type' => 'application/json',
+                'Access-Control-Allow-Origin'=>'*'
+            ];
     }
     /**
      * @Route("/", name="home", methods={"GET"})
@@ -35,10 +40,7 @@ class HomeController extends AbstractController
         $response = new Response(
             $userS,
             Response::HTTP_OK,
-            [
-                'content-type' => 'application/json',
-                'Access-Control-Allow-Origin'=>'*'
-            ]
+            $this->options
         );
         return $response;
     }

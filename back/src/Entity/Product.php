@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +32,16 @@ class Product
      * @ORM\Column(type="text")
      */
     private $url;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Singers", mappedBy="products")
+     */
+    private $singers;
+
+    public function __construct()
+    {
+        $this->singers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +80,37 @@ class Product
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Singers[]
+     */
+    public function getSingers(): Collection
+    {
+        return $this->singers;
+    }
+
+    public function addSinger(Singers $singer): self
+    {
+        if (!$this->singers->contains($singer)) {
+            $this->singers[] = $singer;
+            $singer->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSinger(Singers $singer): self
+    {
+        if ($this->singers->contains($singer)) {
+            $this->singers->removeElement($singer);
+            // set the owning side to null (unless already changed)
+            if ($singer->getProducts() === $this) {
+                $singer->setProducts(null);
+            }
+        }
 
         return $this;
     }

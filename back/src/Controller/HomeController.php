@@ -9,15 +9,21 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Product;
 
 class HomeController extends AbstractController
 {
     public function __construct(){
+        $this->defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
+                return $object;
+            },
+        ];
         $this->serializer = new Serializer(
             [
-                new ObjectNormalizer()
+                new ObjectNormalizer(null, null, null, null, null, null, $this->defaultContext)
             ], 
             [
                 new XmlEncoder(), 
@@ -38,7 +44,8 @@ class HomeController extends AbstractController
         $user = 
             $this->serializer->serialize(
                 $this->getDoctrine()->getRepository(Product::class)->findAll(),
-                'json'
+                'json',
+                ['groups' => ['default']]
             );
         $response = new Response(
             $user,

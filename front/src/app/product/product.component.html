@@ -1,4 +1,10 @@
 <div class="col-12 col-md-6 text-center" *ngFor=" let product of products">
+    <div *ngFor="let singer of product.singers">
+        {{ singer.name }}<br>
+        <br>
+        <img src="{{singer.images.img}}" alt=""><br>
+    </div>
+    <br>
     <img src="{{ product.image }}" /><br>
     {{ product.price }} €<br>
     {{ product.url }}

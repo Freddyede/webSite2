@@ -24,7 +24,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "node_modules/bootstrap3/dist/css/bootstrap.min.css"
             ],
             "scripts": [

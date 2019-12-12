@@ -35,10 +35,13 @@ class HomeController extends AbstractController
      */
     public function index(SerializerInterface $serializer)
     {
-        $user = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        $userS = $this->serializer->serialize($user,'json');
+        $user = 
+            $this->serializer->serialize(
+                $this->getDoctrine()->getRepository(Product::class)->findAll(),
+                'json'
+            );
         $response = new Response(
-            $userS,
+            $user,
             Response::HTTP_OK,
             $this->options
         );

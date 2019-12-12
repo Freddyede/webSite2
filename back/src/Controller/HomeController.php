@@ -16,27 +16,34 @@ class HomeController extends AbstractController
 {
     public function __construct(){
         $this->serializer = new Serializer(
-            [new ObjectNormalizer()], 
+            [
+                new ObjectNormalizer()
+            ], 
             [
                 new XmlEncoder(), 
                 new JsonEncoder()
             ]
         );
+        $this->options=
+            [
+                'content-type' => 'application/json',
+                'Access-Control-Allow-Origin'=>'*'
+            ];
     }
     /**
      * @Route("/", name="home", methods={"GET"})
      */
     public function index(SerializerInterface $serializer)
     {
-        $user = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        $userS = $this->serializer->serialize($user,'json');
+        $user = 
+            $this->serializer->serialize(
+                $this->getDoctrine()->getRepository(Product::class)->findAll(),
+                'json'
+            );
         $response = new Response(
-            $userS,
+            $user,
             Response::HTTP_OK,
-            [
-                'content-type' => 'application/json',
-                'Access-Control-Allow-Origin'=>'*'
-            ]
+            $this->options
         );
         return $response;
     }

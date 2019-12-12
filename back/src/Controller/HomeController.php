@@ -16,7 +16,9 @@ class HomeController extends AbstractController
 {
     public function __construct(){
         $this->serializer = new Serializer(
-            [new ObjectNormalizer()], 
+            [
+                new ObjectNormalizer()
+            ], 
             [
                 new XmlEncoder(), 
                 new JsonEncoder()

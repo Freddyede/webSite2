@@ -8,6 +8,7 @@ import { product } from '../API/sources.api.services.js';
 export class HomeService {
   constructor(private http: HttpClient) { }
   getProduct() {
+    // get url
     return this.http.get(product.get);
   }
 }

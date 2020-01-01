@@ -4,16 +4,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './product/product.component';
+import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
-import { TestComponent } from './testsComponent/test.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    TestComponent
+    ProductComponent,
   ],
   imports: [
     BrowserModule,

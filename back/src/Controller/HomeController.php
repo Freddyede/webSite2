@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Product;
+use App\Entity\ImagesHome;
 
 class HomeController extends AbstractController
 {
@@ -44,6 +45,24 @@ class HomeController extends AbstractController
         $user = 
             $this->serializer->serialize(
                 $this->getDoctrine()->getRepository(Product::class)->findAll(),
+                'json',
+                ['groups' => ['default']]
+            );
+        $response = new Response(
+            $user,
+            Response::HTTP_OK,
+            $this->options
+        );
+        return $response;
+    }
+    /**
+     * @Route("/images", name="home_images", methods={"GET"})
+     */
+    public function images(SerializerInterface $serializer)
+    {
+        $user = 
+            $this->serializer->serialize(
+                $this->getDoctrine()->getRepository(ImagesHome::class)->findAll(),
                 'json',
                 ['groups' => ['default']]
             );

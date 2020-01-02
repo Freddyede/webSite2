@@ -1,3 +1,8 @@
-<div class="col-12">
-    <p>home works!</p>
+<div class="container">
+    <div class="col-12 text-center">
+        <h1 class="text-under">Home</h1>
+    </div>
+    <div class="col-12" *ngFor="let images of images">
+        <img src="{{images.source}}" alt="" class="img-responsive">
+    </div>
 </div>

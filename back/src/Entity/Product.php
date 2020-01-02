@@ -38,9 +38,15 @@ class Product
      */
     private $singers;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ImagesHome", mappedBy="products")
+     */
+    private $imagesHomes;
+
     public function __construct()
     {
         $this->singers = new ArrayCollection();
+        $this->imagesHomes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +115,37 @@ class Product
             // set the owning side to null (unless already changed)
             if ($singer->getProducts() === $this) {
                 $singer->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ImagesHome[]
+     */
+    public function getImagesHomes(): Collection
+    {
+        return $this->imagesHomes;
+    }
+
+    public function addImagesHome(ImagesHome $imagesHome): self
+    {
+        if (!$this->imagesHomes->contains($imagesHome)) {
+            $this->imagesHomes[] = $imagesHome;
+            $imagesHome->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImagesHome(ImagesHome $imagesHome): self
+    {
+        if ($this->imagesHomes->contains($imagesHome)) {
+            $this->imagesHomes->removeElement($imagesHome);
+            // set the owning side to null (unless already changed)
+            if ($imagesHome->getProducts() === $this) {
+                $imagesHome->setProducts(null);
             }
         }
 

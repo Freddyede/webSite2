@@ -5,4 +5,3 @@ This project can to be an exercise project of many relations with API REST
 For realise this exercise u mean to have two frameworks :
 * Symfony 4
 * Angular 7
-* Create website of e-commerce
